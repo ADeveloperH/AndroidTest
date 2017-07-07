@@ -9,13 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ActivityA"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ActivityB"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ActivityC"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ActivityD"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>
