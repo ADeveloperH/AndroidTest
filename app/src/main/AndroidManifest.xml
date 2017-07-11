@@ -25,7 +25,7 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ActivityB"
-            android:launchMode="singleTask" />
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ActivityC"
             android:launchMode="singleTask" />
