@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 List<String> preList = Arrays.asList(premissions);
 //                if (preList.contains("android.permission.INTERNET")) {
 //                    Log.d("huang", packageInfo.applicationInfo.packageName);
-                if (packageInfo.applicationInfo.packageName.contains("zz") ||
-                        packageInfo.applicationInfo.packageName.contains("com.qihoo.appstore")) {
+//                if (packageInfo.applicationInfo.packageName.contains("zz") ||
+//                        packageInfo.applicationInfo.packageName.contains("com.qihoo.appstore")) {
                     int uId = packageInfo.applicationInfo.uid;//获取应用在操作系统内的进程id
                     networkStatsHelper.setPackageUid(uId);
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                             .append(packageInfo.applicationInfo.packageName + ":dayRx:" + dayRx + "KB")
                             .append("\n");
                 }
-            }
+//            }
         }
         Log.d("huang", "resutl:" + stringBuilder.toString());
 
