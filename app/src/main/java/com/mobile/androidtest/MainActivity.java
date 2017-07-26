@@ -10,16 +10,20 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 流量统计：分为6.0之前和6.0之后
@@ -35,78 +39,121 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final int READ_PHONE_STATE_REQUEST = 37;
-    public static final String EXTRA_PACKAGE = "ExtraPackage";
-    private TextView textView;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerview;
+    TrafficRVAdapter adapter;
+    private Context context;
+    private long startTime;
+    private ArrayList<Boolean> stateList;
+    private List<TrafficBean> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        textView = (TextView) findViewById(R.id.text);
-
-
-//        TrafficStasUtils.getCurrentTrafficInfos(this);
-
+        context = this;
+        recyclerview.setLayoutManager(new LinearLayoutManager(context));
     }
 
-    private String getInfo(NetworkStatsHelper networkStatsHelper) {
-        StringBuilder stringBuilder = new StringBuilder();
-        List<Map<String, Object>> list_trafficinfos = new ArrayList<Map<String, Object>>();
+
+    private void getInfo(final NetworkStatsHelper networkStatsHelper) {
+        startTime = System.currentTimeMillis();
         PackageManager pm = this.getPackageManager();
         //获取每个包内的androidmanifest.xml信息，它的权限等等
-        List<PackageInfo> packageInfos = pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
+        final List<PackageInfo> packageInfos = pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES
                 | PackageManager.GET_PERMISSIONS);
+        Log.d("huang", "总共包含" + packageInfos.size() + "个应用程序");
+        //分多线程查询。加快速度
+        if (packageInfos != null && packageInfos.size() > 0) {
+            startTime = System.currentTimeMillis();
+            final int count = 25;
+            stateList = new ArrayList<>();
+            dataList = new ArrayList<>();
+            final int pieceCount = (int) Math.ceil(packageInfos.size() /(double)count);
+            for (int i = 0; i < pieceCount; i++) {
+                stateList.add(false);
+                final int finalI = i;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        if (finalI == pieceCount - 1) {
+                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, packageInfos.size()));
+                        } else {
+                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, (finalI + 1) * count));
+                        }
+                    }
+                }.start();
+
+            }
+        }
+    }
+
+    private void foreach(int index, NetworkStatsHelper networkStatsHelper, List<PackageInfo> packageInfos) {
+        List<TrafficBean> resultList = new ArrayList<>();
         //遍历每个应用包信息
-        for (PackageInfo packageInfo : packageInfos) {
+        for (int i = 0; i < packageInfos.size(); i++) {
+            PackageInfo packageInfo = packageInfos.get(i);
             //请求每个程序包对应的androidManifest.xml里面的权限
             String[] premissions = packageInfo.requestedPermissions;
             if (premissions != null && premissions.length > 0) {
                 //找出需要网络服务的应用程序
                 List<String> preList = Arrays.asList(premissions);
-//                if (preList.contains("android.permission.INTERNET")) {
-//                    Log.d("huang", packageInfo.applicationInfo.packageName);
-//                if (packageInfo.applicationInfo.packageName.contains("zz") ||
-//                        packageInfo.applicationInfo.packageName.contains("com.qihoo.appstore")) {
+                if (preList.contains("android.permission.INTERNET")) {
                     int uId = packageInfo.applicationInfo.uid;//获取应用在操作系统内的进程id
                     networkStatsHelper.setPackageUid(uId);
-
-                    int rx = (int) (networkStatsHelper.getPackageRxBytesMobile(this) / 1024);
-
-                    Log.d("huang", packageInfo.applicationInfo.packageName + ":rx:" + rx + "KB");
-
-                    int monthRx = (int) (networkStatsHelper.getCurMonthRxBytesMobile(this) / 1024);
-                    int tx = (int) (networkStatsHelper.getPackageTxBytesMobile(this) / 1024);
-
-                    Log.d("huang", packageInfo.applicationInfo.packageName + ":monthRx:" + monthRx + "KB");
-                    int dayRx = (int) (networkStatsHelper.getCurDayPackageRxBytesMobile(this) / 1024);
-                    Log.d("huang", packageInfo.applicationInfo.packageName + ":dayRx:" + dayRx + "KB");
-                    stringBuilder.append(packageInfo.applicationInfo.packageName + ":rx:" + rx + "KB")
-                            .append("\n")
-                            .append(packageInfo.applicationInfo.packageName + ":monthRx:" + monthRx + "KB")
-                            .append("\n")
-                            .append(packageInfo.applicationInfo.packageName + ":dayRx:" + dayRx + "KB")
-                            .append("\n");
+//                    long[] monthResult = networkStatsHelper.getCurMonthRxTxBytesMobile(this);
+                    long[] monthResult = {0,0};
+                    long[] dayResult = networkStatsHelper.getCurDayRxTxBytesMobile(this);
+                    if (dayResult[0] > 0 || dayResult[1] > 0) {
+                        TrafficBean bean = new TrafficBean();
+                        bean.setPkgName(packageInfo.applicationInfo.packageName);
+                        bean.setMonthTx(monthResult[0]);
+                        bean.setMonthRx(monthResult[1]);
+                        bean.setDayTx(dayResult[0]);
+                        bean.setDayRx(dayResult[1]);
+                        resultList.add(bean);
+                    }
                 }
-//            }
+            }
         }
-        Log.d("huang", "resutl:" + stringBuilder.toString());
 
-        return stringBuilder.toString();
+        Log.d("huang", "查询完毕:i" + index + ":结果大小：" + resultList.size());
+        stateList.set(index, true);
+        dataList.addAll(resultList);
+        notifyShow();
     }
 
+    private synchronized void notifyShow() {
+        for (int i = 0; i < stateList.size(); i++) {
+            if (!stateList.get(i)) {
+                return;
+            }
+        }
+        Log.d("huang", "总耗时：" + ((System.currentTimeMillis() - startTime) / 1000) + "秒");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter = new TrafficRVAdapter(dataList);
+                recyclerview.setAdapter(adapter);
+            }
+        });
+    }
+
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         requestPermissions();
     }
 
     private void requestPermissions() {
-        if (!hasPermissionToReadNetworkHistory()) {
-            return;
-        }
         if (!hasPermissionToReadPhoneStats()) {
             requestPhoneStateStats();
+            return;
+        }
+        if (!hasPermissionToReadNetworkHistory()) {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -118,14 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     super.run();
-                    final String result = getInfo(networkStatsHelper);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(result);
-                        }
-                    });
-
+                    getInfo(networkStatsHelper);
                 }
             }.start();
         }
@@ -151,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         }
         final AppOpsManager appOps = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
         int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
-                android.os.Process.myUid(), getPackageName());
+                Process.myUid(), getPackageName());
         if (mode == AppOpsManager.MODE_ALLOWED) {
             return true;
         }
@@ -162,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     @TargetApi(Build.VERSION_CODES.M)
                     public void onOpChanged(String op, String packageName) {
                         int mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
-                                android.os.Process.myUid(), getPackageName());
+                                Process.myUid(), getPackageName());
                         if (mode != AppOpsManager.MODE_ALLOWED) {
                             return;
                         }

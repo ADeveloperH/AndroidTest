@@ -96,8 +96,8 @@ public class NetworkStatsHelper {
         long totalRx = 0L;
         while (networkStats.hasNextBucket()) {
             NetworkStats.Bucket bucket = new NetworkStats.Bucket();
-            Log.d("huang","StartTime: "+bucket.getStartTimeStamp());
-            Log.d("huang","EndTime: "+bucket.getEndTimeStamp());
+            Log.d("huang", "StartTime: " + bucket.getStartTimeStamp());
+            Log.d("huang", "EndTime: " + bucket.getEndTimeStamp());
             networkStats.getNextBucket(bucket);
             totalRx += bucket.getRxBytes();
             Log.d("huang", "while::" + i + ":" + bucket.getRxBytes());
@@ -105,112 +105,6 @@ public class NetworkStatsHelper {
         }
         return totalRx;
     }
-
-
-    public long getCurMonthRxBytesMobile(Context context) {
-        NetworkStats networkStats = null;
-        try {
-            long beginMonth = DateUtils.getBeginDayOfMonth().getTime();
-            networkStats = networkStatsManager.queryDetailsForUid(
-                    ConnectivityManager.TYPE_MOBILE,
-                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
-                    beginMonth,
-                    System.currentTimeMillis(),
-                    packageUid);
-        } catch (RemoteException e) {
-            return -1;
-        }
-        int i = 0;
-        long totalRx = 0L;
-        while (networkStats.hasNextBucket()) {
-            NetworkStats.Bucket bucket = new NetworkStats.Bucket();
-            Log.d("huang","StartTime: "+bucket.getStartTimeStamp());
-            Log.d("huang","EndTime: "+bucket.getEndTimeStamp());
-            networkStats.getNextBucket(bucket);
-            totalRx += bucket.getRxBytes();
-            Log.d("huang", "while::" + i + ":" + bucket.getRxBytes());
-            i++;
-        }
-        return totalRx;
-    }
-
-    public long getCurDayPackageRxBytesMobile(Context context) {
-        NetworkStats networkStats = null;
-        try {
-            long current = System.currentTimeMillis();//当前时间毫秒数
-            long zero = DateUtils.getDayBegin().getTime();
-            networkStats = networkStatsManager.queryDetailsForUid(
-                    ConnectivityManager.TYPE_MOBILE,
-                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
-                    zero,
-                    current,
-                    packageUid);
-        } catch (RemoteException e) {
-            return -1;
-        }
-        int i = 0;
-        long totalRx = 0L;
-        while (networkStats.hasNextBucket()) {
-            NetworkStats.Bucket bucket = new NetworkStats.Bucket();
-            Log.d("huang","StartTime: "+bucket.getStartTimeStamp());
-            Log.d("huang","EndTime: "+bucket.getEndTimeStamp());
-            networkStats.getNextBucket(bucket);
-            totalRx += bucket.getRxBytes();
-            Log.d("huang", "while::" + i + ":" + bucket.getRxBytes());
-            i++;
-        }
-        return totalRx;
-    }
-
-
-    /**
-     * this method cannot be used to measure data usage on a fine grained time scale.
-     * 由于铲斗长度为小时数，因此该方法不能用于测量细粒度时间尺度上的数据使用情况
-     * {@link NetworkStatsManager#queryDetailsForUidTag(int, java.lang.String, long, long, int, int)}
-     * @param context
-     * @return
-     */
-    public long getShortPackageRxBytesMobile(Context context) {
-        NetworkStats networkStats = null;
-        try {
-            long current = System.currentTimeMillis();//当前时间毫秒数
-            long zero = current - 1000 * 60 * 3;//今天零点零分零秒的毫秒数
-            networkStats = networkStatsManager.queryDetailsForUid(
-                    ConnectivityManager.TYPE_MOBILE,
-                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
-                    zero,
-                    current,
-                    packageUid);
-            Log.d("huang", "return not -1");
-        } catch (RemoteException e) {
-            Log.d("huang", "return -1");
-            return -1;
-        }
-        NetworkStats.Bucket bucket = new NetworkStats.Bucket();
-        if (networkStats.hasNextBucket()) {
-            Log.d("huang", "networkStats.hasNextBucket()11");
-        }
-        networkStats.getNextBucket(bucket);
-        if (networkStats.hasNextBucket()) {
-            Log.d("huang", "networkStats.hasNextBucket()12");
-        }
-        networkStats.getNextBucket(bucket);
-
-        if (networkStats.hasNextBucket()) {
-            Log.d("huang", "networkStats.hasNextBucket()0");
-            if (networkStats.hasNextBucket()) {
-                Log.d("huang", "networkStats.hasNextBucket()1");
-                if (networkStats.hasNextBucket()) {
-                    Log.d("huang", "networkStats.hasNextBucket()2");
-                    if (networkStats.hasNextBucket()) {
-                        Log.d("huang", "networkStats.hasNextBucket()3");
-                    }
-                }
-            }
-        }
-        return bucket.getRxBytes();
-    }
-
 
     public long getPackageTxBytesMobile(Context context) {
         NetworkStats networkStats = null;
@@ -262,6 +156,86 @@ public class NetworkStatsHelper {
         networkStats.getNextBucket(bucket);
         return bucket.getTxBytes();
     }
+
+
+
+    /**
+     * result[0]:Tx
+     * result[1]:Rx
+     * @param context
+     * @return
+     */
+    public long[] getCurMonthRxTxBytesMobile(Context context) {
+        long[] result = new long[2];
+        NetworkStats networkStats = null;
+        try {
+            long beginMonth = DateUtils.getBeginDayOfMonth().getTime();
+            networkStats = networkStatsManager.queryDetailsForUid(
+                    ConnectivityManager.TYPE_MOBILE,
+                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
+                    beginMonth,
+                    System.currentTimeMillis(),
+                    packageUid);
+        } catch (RemoteException e) {
+            return result;
+        }
+        long totalRx = 0L;
+        long totalTx = 0L;
+        NetworkStats.Bucket bucket = new NetworkStats.Bucket();
+        do{
+            networkStats.getNextBucket(bucket);
+            totalRx += bucket.getRxBytes();
+            totalTx += bucket.getTxBytes();
+        }while (networkStats.hasNextBucket());
+        result[0] = totalTx;
+        result[1] = totalRx;
+        return result;
+    }
+
+
+    /**
+     * result[0]:Tx
+     * result[1]:Rx
+     * @param context
+     * @return
+     */
+    public long[] getCurDayRxTxBytesMobile(Context context) {
+        long[] result = new long[2];
+        NetworkStats networkStats = null;
+        try {
+            long current = System.currentTimeMillis();//当前时间毫秒数
+            long zero = DateUtils.getDayBeginMill();
+            networkStats = networkStatsManager.queryDetailsForUid(
+                    ConnectivityManager.TYPE_MOBILE,
+                    getSubscriberId(context, ConnectivityManager.TYPE_MOBILE),
+                    zero,
+                    current,
+                    packageUid);
+        } catch (RemoteException e) {
+            return result;
+        }
+        long totalRx = 0L;
+        long totalTx = 0L;
+        NetworkStats.Bucket bucket = new NetworkStats.Bucket();
+        do{
+            networkStats.getNextBucket(bucket);
+            totalRx += bucket.getRxBytes();
+            totalTx += bucket.getTxBytes();
+        }while (networkStats.hasNextBucket());
+        result[0] = totalTx;
+        result[1] = totalRx;
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
 
     private String getSubscriberId(Context context, int networkType) {
         if (ConnectivityManager.TYPE_MOBILE == networkType) {
