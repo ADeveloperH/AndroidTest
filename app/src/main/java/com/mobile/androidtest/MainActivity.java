@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean hasPermissionToReadPhoneStats() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_DENIED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+                == PackageManager.PERMISSION_DENIED) {
             return false;
         } else {
             return true;
@@ -205,7 +206,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPhoneStateStats() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_REQUEST);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_PHONE_STATE}, READ_PHONE_STATE_REQUEST);
     }
 
     private boolean hasPermissionToReadNetworkHistory() {
