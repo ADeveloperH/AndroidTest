@@ -3,8 +3,10 @@ package com.mobile.androidtest;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;
+import android.app.ProgressDialog;
 import android.app.usage.NetworkStatsManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,9 +19,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private long startTime;
     private ArrayList<Boolean> stateList;
     private List<TrafficBean> dataList;
+    private ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,25 +71,26 @@ public class MainActivity extends AppCompatActivity {
         //分多线程查询。加快速度
         if (packageInfos != null && packageInfos.size() > 0) {
             startTime = System.currentTimeMillis();
-            final int count = 25;
-            stateList = new ArrayList<>();
             dataList = new ArrayList<>();
-            final int pieceCount = (int) Math.ceil(packageInfos.size() /(double)count);
-            for (int i = 0; i < pieceCount; i++) {
-                stateList.add(false);
-                final int finalI = i;
-                new Thread() {
-                    @Override
-                    public void run() {
-                        if (finalI == pieceCount - 1) {
-                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, packageInfos.size()));
-                        } else {
-                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, (finalI + 1) * count));
-                        }
-                    }
-                }.start();
-
-            }
+//            final int count = 488;
+//            stateList = new ArrayList<>();
+            foreach(0, networkStatsHelper, packageInfos);
+//            final int pieceCount = (int) Math.ceil(packageInfos.size() / (double) count);
+//            for (int i = 0; i < pieceCount; i++) {
+//                stateList.add(false);
+//                final int finalI = i;
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        if (finalI == pieceCount - 1) {
+//                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, packageInfos.size()));
+//                        } else {
+//                            foreach(finalI, networkStatsHelper, packageInfos.subList(finalI * count, (finalI + 1) * count));
+//                        }
+//                    }
+//                }.start();
+//
+//            }
         }
     }
 
@@ -97,46 +101,54 @@ public class MainActivity extends AppCompatActivity {
             PackageInfo packageInfo = packageInfos.get(i);
             //请求每个程序包对应的androidManifest.xml里面的权限
             String[] premissions = packageInfo.requestedPermissions;
-            if (premissions != null && premissions.length > 0) {
-                //找出需要网络服务的应用程序
-                List<String> preList = Arrays.asList(premissions);
-                if (preList.contains("android.permission.INTERNET")) {
-                    int uId = packageInfo.applicationInfo.uid;//获取应用在操作系统内的进程id
-                    networkStatsHelper.setPackageUid(uId);
+//            if (premissions != null && premissions.length > 0) {
+//                //找出需要网络服务的应用程序
+//                List<String> preList = Arrays.asList(premissions);
+//                if (preList.contains("android.permission.INTERNET")) {
+            int uId = packageInfo.applicationInfo.uid;//获取应用在操作系统内的进程id
+            networkStatsHelper.setPackageUid(uId);
 //                    long[] monthResult = networkStatsHelper.getCurMonthRxTxBytesMobile(this);
-                    long[] monthResult = {0,0};
-                    long[] dayResult = networkStatsHelper.getCurDayRxTxBytesMobile(this);
-                    if (dayResult[0] > 0 || dayResult[1] > 0) {
-                        TrafficBean bean = new TrafficBean();
-                        bean.setPkgName(packageInfo.applicationInfo.packageName);
-                        bean.setMonthTx(monthResult[0]);
-                        bean.setMonthRx(monthResult[1]);
-                        bean.setDayTx(dayResult[0]);
-                        bean.setDayRx(dayResult[1]);
-                        resultList.add(bean);
-                    }
-                }
+            long[] monthResult = {0, 0};
+            long[] dayResult = networkStatsHelper.getCurDayRxTxBytesMobile(this);
+            if (dayResult[0] > 0 || dayResult[1] > 0) {
+                TrafficBean bean = new TrafficBean();
+                bean.setPkgName(packageInfo.applicationInfo.packageName);
+                bean.setMonthTx(monthResult[0]);
+                bean.setMonthRx(monthResult[1]);
+                bean.setDayTx(dayResult[0]);
+                bean.setDayRx(dayResult[1]);
+                resultList.add(bean);
             }
+//                }
+//            }
         }
 
         Log.d("huang", "查询完毕:i" + index + ":结果大小：" + resultList.size());
-        stateList.set(index, true);
-        dataList.addAll(resultList);
+//        stateList.set(index, true);
+        dataList = resultList;
         notifyShow();
     }
 
     private synchronized void notifyShow() {
-        for (int i = 0; i < stateList.size(); i++) {
-            if (!stateList.get(i)) {
-                return;
-            }
-        }
+//        for (int i = 0; i < stateList.size(); i++) {
+//            if (!stateList.get(i)) {
+//                return;
+//            }
+//        }
         Log.d("huang", "总耗时：" + ((System.currentTimeMillis() - startTime) / 1000) + "秒");
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter = new TrafficRVAdapter(dataList);
-                recyclerview.setAdapter(adapter);
+                if (loading != null && loading.isShowing()) {
+                    loading.dismiss();
+                }
+                if (dataList != null && dataList.size() > 0) {
+                    adapter = new TrafficRVAdapter(dataList);
+                    recyclerview.setAdapter(adapter);
+                } else {
+                    Toast.makeText(context,"当前无应用消耗数据流量",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
@@ -160,6 +172,17 @@ public class MainActivity extends AppCompatActivity {
             NetworkStatsManager networkStatsManager = (NetworkStatsManager) getApplicationContext()
                     .getSystemService(Context.NETWORK_STATS_SERVICE);
             final NetworkStatsHelper networkStatsHelper = new NetworkStatsHelper(networkStatsManager);
+            loading = ProgressDialog.show(context, "", "正在加载中...", true, false, new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    try {
+                        if (null != context) {
+                            loading.dismiss();
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+            });
 
             new Thread() {
                 @Override
