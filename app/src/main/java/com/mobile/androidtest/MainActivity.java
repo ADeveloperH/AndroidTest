@@ -3,6 +3,7 @@ package com.mobile.androidtest;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void click(View view) {
+    public void showWM(View view) {
         if (wManger != null && contentView != null) {
             wManger.removeView(contentView);
             wManger.removeViewImmediate(contentView);
@@ -136,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         wManger.addView(contentView, params);
 
     }
+
     private void dismissWM() {
         if (wManger != null && contentView != null) {
             wManger.removeViewImmediate(contentView);
@@ -151,5 +154,44 @@ public class MainActivity extends AppCompatActivity {
         //替换与模式匹配的所有字符（即非数字的字符将被""替换）
         return m.replaceAll("").trim();
 
+    }
+
+
+    /**
+     * DecorView参考链接
+     * https://juejin.im/entry/59116dd044d904007bf99e09
+     *
+     * @param view
+     */
+    public void showDV(View view) {
+        final ViewGroup rootView = (ViewGroup) getWindow().getDecorView();
+        final View addView = View.inflate(context, R.layout.wm_content_view, null);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        rootView.addView(addView, params);
+
+        addView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rootView != null && addView != null) {
+                    rootView.removeView(addView);
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 显示对话框
+     * @param view
+     */
+    public void showDialog(View view) {
+        new AlertDialog.Builder(context)
+                .setTitle("测试对话框")
+                .setMessage("对话框显示的文本信息")
+                .setCancelable(true)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", null).create().show();
     }
 }

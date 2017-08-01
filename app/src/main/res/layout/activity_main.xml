@@ -11,9 +11,24 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:text="点击显示"
+        android:text="点击显示WindowManager"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="15dp"
-        android:onClick="click" />
+        android:onClick="showWM" />
+
+
+    <Button
+        android:text="点击显示DecorView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:onClick="showDV" />
+
+    <Button
+        android:text="点击显示Dialog"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        android:onClick="showDialog" />
 </LinearLayout>
