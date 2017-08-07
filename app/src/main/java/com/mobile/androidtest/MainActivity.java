@@ -8,6 +8,9 @@ import android.view.View;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  *
  * 参考链接：
@@ -54,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
         Bean bean = new Gson().fromJson(jsonStr, Bean.class);
         Log.d(TAG, "parseJson: " + bean.getS());
         Log.d(TAG, "parseJson: isEmpty:" + TextUtils.isEmpty(bean.getS()));
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonStr);
+            Log.d(TAG, "parseJson: jsonobject:" + jsonObject.getString("s"));
+            Log.d(TAG, "parseJson: jsonobject:" + TextUtils.isEmpty(jsonObject.getString("s")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void parseJson2(View view) {
