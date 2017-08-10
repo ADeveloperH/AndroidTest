@@ -20,7 +20,7 @@ import butterknife.OnClick;
 
 
 public class BaseActivity extends Activity {
-    final String TAG = "activity";
+    final String TAG = "huang";
     final String className = this.getClass().getSimpleName();
     @BindView(R.id.text)
     TextView text;
@@ -36,7 +36,6 @@ public class BaseActivity extends Activity {
     Button btnMain;
 
     @Override
-
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
