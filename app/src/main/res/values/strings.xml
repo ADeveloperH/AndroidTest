@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">AndroidTest</string>
+
+    <string name="head">这里是HeadView</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载...</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+    <string name="activity_content">1:首页找到亲密，进行亲密好友添加\n2:每日成功添加亲密好友的前30名用户各获得500M流量奖励</string>
+    <string name="title_activity_dynamic_login_psw">DynamicLoginPswActivity</string>
+    <string name="set_contact">请在“设置-安全中心/应用权限管理”中找到10086，权限管理中选择允许读取联系人</string>
+    <string name="link_text"><u>解除亲密</u></string>
+    <string name="title_activity_edit_card">EditCardActivity</string>
+    <string name="tips_title">--投诉说明--</string>
+    <string name="tips_copyright">Copyright©2017 中国移动</string>
+    <string name="advice_tips">1.中国移动通信不公开用户的姓名、地址、电子邮箱等信息；\n2.中国移动通信保留删除恶意投诉工单的权利；\n3.用户须承诺不传输任何非法的、骚扰性的、中伤他人的、辱骂性的、恐吓性的、伤害性的、庸俗的，淫秽的等信息资料。</string>
+    <string name="app_id">592285c1</string>
+
+    <string name="hint_desc_feedback">1、请在此描述您的问题\n2、您也可以点击页面右上角，咨询在线客服</string>
+
+    <string name="app_loading">加载中…</string>
+    <string name="app_loading_more">加载更多…</string>
+    <string name="app_no_more_data">没有更多数据了…</string>
 </resources>
