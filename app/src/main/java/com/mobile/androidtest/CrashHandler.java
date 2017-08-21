@@ -115,10 +115,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
                     @Override
                     public void run() {
                         Looper.prepare();
-                        Toast.makeText(mContext, "很抱歉，程序出现异常，即将退出。", Toast.LENGTH_LONG).show();
                         collectDeviceInfo(mContext);
                         //将异常信息保存到本地
                         saveCrashInfo2File(ex);
+                        Toast.makeText(mContext, "很抱歉，程序出现异常，即将退出。", Toast.LENGTH_LONG).show();
                         Looper.loop();
                     }
                 }
@@ -200,7 +200,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             return fileName;
         } catch (Exception e) {
         }
-        Log.e("CrashHandler", "result::" + sb.toString());
+        Log.d("huang", "result::" + sb.toString());
         return sb.toString();
     }
 
