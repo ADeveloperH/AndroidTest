@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入要加载的图片链接"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tv_cachesize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击开始下载" />
+
+    <Button
+        android:id="@+id/btn_clearcachebyurl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清除当前链接的缓存" />
+
+    <Button
+        android:id="@+id/btn_clearcache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清除所有缓存" />
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>
