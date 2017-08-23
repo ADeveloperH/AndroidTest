@@ -5,11 +5,16 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textSize="40dp"
-       android:textColor="@android:color/black"
-       android:text="OKHTTPTEST"/>
+    <Button
+        android:id="@+id/btn_request_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发起同步请求" />
+
+    <Button
+        android:id="@+id/btn_request_async"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发起异步请求" />
 
 </LinearLayout>
