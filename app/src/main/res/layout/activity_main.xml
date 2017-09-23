@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <com.mobile.androidtest.ObservableWebView
+        android:id="@+id/scorllableWebview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</LinearLayout>
+
+    <com.mobile.androidtest.FloatingView
+        android:id="@+id/floatview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp" />
+
+</RelativeLayout>

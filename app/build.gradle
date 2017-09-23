@@ -5,8 +5,8 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.mobile.androidtest"
-        minSdkVersion 9
-        targetSdkVersion 25
+        minSdkVersion 11
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
