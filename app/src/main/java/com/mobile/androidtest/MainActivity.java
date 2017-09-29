@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         floatingView.setmViewState(FloatingView.ViewStateEnum.CLOSE);
                         floatingView.setImage(R.mipmap.pop_spread);
                     }
+                    //测试test1添加一下东西
                     break;
             }
         }
