@@ -14,5 +14,6 @@ public class MyApplication extends Application {
         super.onCreate();
         // 捕获全局崩溃日志
         CrashHandler.getInstance().init(getApplicationContext());
+        //测试修改
     }
 }
