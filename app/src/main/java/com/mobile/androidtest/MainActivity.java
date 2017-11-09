@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.mobile.androidtest.pagestate.PageListener;
 import com.mobile.androidtest.pagestate.PageStateManager;
+import com.mobile.androidtest.pagestate.StringUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,22 +35,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myHandler.sendEmptyMessageDelayed(SHOW_RETYRVIEW, 10000);
+        myHandler.sendEmptyMessageDelayed(SHOW_RETYRVIEW, 2000);
     }
 
     public static final int SHOW_RETYRVIEW = 1;
     public static final int SHOW_CONTENT = 2;
-    private Handler myHandler = new Handler(){
+    private Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SHOW_RETYRVIEW:
-                    pageStateManager.showRetryView();
+                    String info = "哎呀\n网络好像不太给力，请稍后再试";
+
+                    pageStateManager.showRetryView(StringUtils.formatRelativeSize(info, 1.4f, 0, 2));
                     break;
                 case SHOW_CONTENT:
                     pageStateManager.showContent();
 //                    finish();
-                    startActivity(new Intent(MainActivity.this,MainActivity2.class));
+                    startActivity(new Intent(MainActivity.this, MainActivity2.class));
                     break;
             }
         }

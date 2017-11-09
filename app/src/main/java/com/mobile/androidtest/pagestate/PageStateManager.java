@@ -37,6 +37,7 @@ public class PageStateManager {
 
         pageStateLayout.setRetryViewId(RETRY_LAYOUT_ID);
         pageStateLayout.setRetryClickViewId(R.id.reryClickView);
+        pageStateLayout.setRetryInfoViewId(R.id.reryInfoView);
         pageStateLayout.setRetryAnimeView(R.id.retryAnimeView);
         pageStateLayout.setContentView(contentView);
     }
@@ -50,7 +51,7 @@ public class PageStateManager {
     public void showContent() {
         if (pageStateLayout != null) {
             pageStateLayout.showContent();
-            contentParent.removeView(pageStateLayout);
+//            contentParent.removeView(pageStateLayout);
         }
     }
 
@@ -60,7 +61,7 @@ public class PageStateManager {
         }
     }
 
-    public void showRetryView(String msg) {
+    public void showRetryView(CharSequence msg) {
         if (pageStateLayout != null) {
             pageStateLayout.showRetry(msg);
         }

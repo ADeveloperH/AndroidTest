@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.mobile.androidtest.frameanimation.MockFrameImageView;
 
@@ -22,13 +23,14 @@ import com.mobile.androidtest.frameanimation.MockFrameImageView;
 public class PageStateLayout extends FrameLayout {
     private LayoutInflater layoutInflater;
     private View mContentView;
-
     private int retryClickViewId = -1;//重新获取按钮
     private View mRetryView;
     private int retryViewId;//失败页面的id
     private View retryAnimeView;//帧动画的View
     private int retryAnimeViewId;//失败页面动画的view
     private PageListener pageListener;//点击重试的事件
+    private int retryInfoViewId;//失败页面重试文案
+    private View retryInfoView;//失败页面重试文案的View
 
     public PageStateLayout(@NonNull Context context) {
         this(context, null);
@@ -47,8 +49,26 @@ public class PageStateLayout extends FrameLayout {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
-    public void showRetry(String msg) {
 
+    /**
+     * 显示失败重试页面
+     * @param msg
+     */
+    public void showRetry(CharSequence msg) {
+        showRetry();
+
+        if (retryInfoView == null) {
+            if (retryInfoViewId > 0) {
+                retryInfoView = mRetryView.findViewById(retryInfoViewId);
+                if (retryInfoView instanceof TextView) {
+                    ((TextView) retryInfoView).setText(msg);
+                }
+            }
+        } else {
+            if (retryInfoView instanceof TextView) {
+                ((TextView) retryInfoView).setText(msg);
+            }
+        }
     }
 
     public void showRetry() {
@@ -94,6 +114,10 @@ public class PageStateLayout extends FrameLayout {
         }
     }
 
+
+    /**
+     * 显示具体content
+     */
     public void showContent() {
         if (isMainThread()) {
             showView(mContentView);
@@ -112,7 +136,6 @@ public class PageStateLayout extends FrameLayout {
         if (view == mContentView) {
             setVisibility(View.GONE);
             stopAnim(retryAnimeView);
-            removeView(retryAnimeView);
             if (mContentView != null)
                 mContentView.setVisibility(View.VISIBLE);
         } else {
@@ -140,6 +163,10 @@ public class PageStateLayout extends FrameLayout {
 
     public void setRetryViewId(int retryViewId) {
         this.retryViewId = retryViewId;
+    }
+
+    public void setRetryInfoViewId(int reryInfoViewId) {
+        this.retryInfoViewId = reryInfoViewId;
     }
 
     public void setRetryClickViewId(int retryClickViewId) {
