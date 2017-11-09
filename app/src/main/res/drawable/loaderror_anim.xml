@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item
+        android:drawable="@drawable/loaderror_1"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_2"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_3"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_4"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_5"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_6"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_7"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_8"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_9"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_10"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_11"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_12"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_13"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_14"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_15"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_16"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/loaderror_17"
+        android:duration="100" />
+
+</animation-list>
