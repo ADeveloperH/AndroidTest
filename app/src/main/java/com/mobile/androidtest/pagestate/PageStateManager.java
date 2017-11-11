@@ -39,7 +39,7 @@ public class PageStateManager {
         pageStateLayout.setRetryViewId(builder.retryViewId > 0 ? builder.retryViewId : R.layout.loaderror_layout2);
         pageStateLayout.setRetryClickViewId(builder.retryClickViewId > 0 ? builder.retryClickViewId : R.id.reryClickView);
         pageStateLayout.setRetryInfoViewId(builder.retryInfoViewId > 0 ? builder.retryInfoViewId : R.id.reryInfoView);
-        pageStateLayout.setRetryAnimeView(builder.retryAnimeViewId > 0 ? builder.retryAnimeViewId : R.id.retryAnimeView);
+        pageStateLayout.setRetryAnimeViewId(builder.retryAnimeViewId > 0 ? builder.retryAnimeViewId : R.id.retryAnimeView);
         pageStateLayout.setContentView(contentView);
     }
 

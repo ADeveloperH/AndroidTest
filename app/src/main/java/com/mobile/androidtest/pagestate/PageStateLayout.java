@@ -160,7 +160,7 @@ public class PageStateLayout extends FrameLayout {
         this.retryClickViewId = retryClickViewId;
     }
 
-    public void setRetryAnimeView(int retryAnimeViewId) {
+    public void setRetryAnimeViewId(int retryAnimeViewId) {
         this.retryAnimeViewId = retryAnimeViewId;
         if (mRetryView != null && retryAnimeViewId > 0) {
             retryAnimeView = mRetryView.findViewById(retryAnimeViewId);
