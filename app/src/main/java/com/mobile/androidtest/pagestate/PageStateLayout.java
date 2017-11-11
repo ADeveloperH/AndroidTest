@@ -23,14 +23,19 @@ import com.mobile.androidtest.frameanimation.MockFrameImageView;
 public class PageStateLayout extends FrameLayout {
     private LayoutInflater layoutInflater;
     private View mContentView;
+
     private int retryClickViewId = -1;//重新获取按钮
-    private View mRetryView;
+
     private int retryViewId;//失败页面的id
+    private View mRetryView;
+
     private View retryAnimeView;//帧动画的View
     private int retryAnimeViewId;//失败页面动画的view
-    private PageListener pageListener;//点击重试的事件
+
     private int retryInfoViewId;//失败页面重试文案
     private View retryInfoView;//失败页面重试文案的View
+
+    private PageListener pageListener;//点击重试的事件
 
     public PageStateLayout(@NonNull Context context) {
         this(context, null);
@@ -52,6 +57,7 @@ public class PageStateLayout extends FrameLayout {
 
     /**
      * 显示失败重试页面
+     *
      * @param msg
      */
     public void showRetry(CharSequence msg) {
@@ -75,17 +81,7 @@ public class PageStateLayout extends FrameLayout {
         if (mRetryView == null && retryViewId > 0) {
             initRetryView();
         }
-
-        if (isMainThread()) {
-            showView(mRetryView);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showView(mRetryView);
-                }
-            });
-        }
+        showView(mRetryView);
     }
 
 
@@ -119,16 +115,7 @@ public class PageStateLayout extends FrameLayout {
      * 显示具体content
      */
     public void showContent() {
-        if (isMainThread()) {
-            showView(mContentView);
-        } else {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    showView(mContentView);
-                }
-            });
-        }
+        showView(mContentView);
     }
 
     private void showView(View view) {

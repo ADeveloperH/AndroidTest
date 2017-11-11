@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         View contentView = findViewById(R.id.tv_content);
-        pageStateManager = new PageStateManager(contentView);
+        pageStateManager = new PageStateManager.Builder(contentView).build();
 
 
         pageStateManager.setPageListener(new PageListener() {
