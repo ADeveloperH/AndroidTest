@@ -113,9 +113,6 @@ public class PageStateManager {
     }
 
 
-
-
-
     public void setPageListener(final PageListener pageListener) {
         if (pageStateLayout != null) {
             pageStateLayout.setPageListener(pageListener);

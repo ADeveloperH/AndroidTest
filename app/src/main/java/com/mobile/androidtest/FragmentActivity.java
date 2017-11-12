@@ -48,6 +48,7 @@ public class FragmentActivity extends AppCompatActivity {
         } else {
             tablayout.setTabMode(TabLayout.MODE_FIXED);
         }
+        viewpager.setOffscreenPageLimit(fragmentList.size() - 1);
 
         tablayout.setupWithViewPager(viewpager);
         /**
