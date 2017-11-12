@@ -8,6 +8,14 @@ import com.mobile.androidtest.R;
 /**
  * author：hj
  * time: 2017/11/6 0006 11:19
+ *
+ * Q1：为什么只提供一个contentView作为参数使用，而不是兼容Activity、Fragment？
+ * 如果使用Activity就需要找到顶层的parent{@link android.view.Window.ID_ANDROID_CONTENT}，然后将状态页添加进去，但是
+ * 这样会替换掉整个页面，包括ToolBar等，这样显然是不行的。
+ * 如果使用Fragment，通过fragment.getView()获取Fragment显示的view作为contetView，这样也不好，因为contentView.getParent()
+ * 获取的是ViewPager，这样也是不能达到只替换某个单独的Fragment的场景
+ * 因此只使用contentView作为入参，完美适用所有场景
+ *
  */
 
 public class PageStateManager {
