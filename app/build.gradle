@@ -30,4 +30,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 //    compile 'com.github.avenwu:animation:0.2.0'
     testCompile 'junit:junit:4.12'
+    compile "com.android.support:design:25.3.1"
 }

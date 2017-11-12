@@ -31,6 +31,7 @@ public class PageStateManager {
                 break;
             }
         }
+
         //将状态页面添加到contentView所在的布局中
         pageStateLayout = new PageStateLayout(contentView.getContext());
         ViewGroup.LayoutParams contentViewLayoutParams = contentView.getLayoutParams();

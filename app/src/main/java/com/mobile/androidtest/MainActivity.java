@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 case SHOW_CONTENT:
                     pageStateManager.showContent();
 //                    finish();
-                    startActivity(new Intent(MainActivity.this, MainActivity2.class));
+                    startActivity(new Intent(MainActivity.this,FragmentActivity.class));
                     break;
             }
         }
