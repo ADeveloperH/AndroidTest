@@ -33,7 +33,9 @@ PullableRefresh_webview
 	下拉刷新嵌套WebView解决冲突
 		
 pageloadstatedemo
-	封装请求失败页面状态管理，使用Builder模式，完美集成TabLayout使用Demo，完美适用Activity、Fragment等
+	1、完美集成TabLayout使用Demo
+	2、解决帧动画耗费大量内存问题
+	3、封装请求失败页面状态管理，使用Builder模式，完美适用Activity、Fragment等
 
 permission
 	用来测试权限适配相关代码，暂未加入代码
