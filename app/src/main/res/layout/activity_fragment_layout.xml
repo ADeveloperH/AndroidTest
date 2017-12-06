@@ -10,13 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:overScrollMode="never"
-        app:tabBackground="@color/colorPrimary"
-        app:tabIndicatorHeight="0dp"
+        app:tabBackground="@color/tabBackground"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="1dp"
         app:tabMode="scrollable"
         app:tabPadding="5dp"
-        app:tabSelectedTextColor="#ffffffff"
+        app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextAppearance="@style/TabLayout.TabText"
-        app:tabTextColor="#99ffffff" />
+        app:tabTextColor="#ff6b6662" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

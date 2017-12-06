@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myHandler.sendEmptyMessageDelayed(SHOW_RETYRVIEW, 2000);
+//        myHandler.sendEmptyMessageDelayed(SHOW_RETYRVIEW, 2000);
+        myHandler.sendEmptyMessageDelayed(SHOW_CONTENT, 2000);
     }
 
     public static final int SHOW_RETYRVIEW = 1;
