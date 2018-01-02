@@ -16,6 +16,9 @@ activity_task_test
 customer_scheme
 	1、DiskLruCache基本功能使用的Demo,okhttp同步异步请求测试
 	2、H5通过自定义scheme唤起客户端某个页面并实现传参功能及兼容性测试
+
+frameanimation
+	优化系统帧动画内存占用问题，解决释放系统帧动画内存问题，分析图片内存占用，BitmapFactory.decodeStream和BitmapFactory.decodeResource加载的区别。
 	
 glideloader_test
 	加入Glide依赖，可以进行Glide的API使用测试	
