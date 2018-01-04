@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
 
+    <Button
+        android:id="@+id/btn_singleinstance"
+        android:layout_width="match_parent"
+        android:text="测试单例"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/btn_innerclass"
+        android:text="测试请求"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 </LinearLayout>
