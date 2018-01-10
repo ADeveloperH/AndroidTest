@@ -22,7 +22,7 @@ import android.widget.ViewSwitcher;
 
 
 public class HomeNotifyView extends LinearLayout {
-    public static final int SCROLL = 1;//循环滑动
+    public static final int SCROLL = 1;//循环跑马灯效果
 
     private ViewSwitcher viewSwitcher;
     private MarqueeHandler marqueeHandler;
