@@ -52,10 +52,6 @@ public class HomeNormalNotifyView extends LinearLayout {
     private void init(Context context) {
         this.context = context;
         setOrientation(VERTICAL);
-        View view = View.inflate(context, R.layout.viewswitcher, null);
-        addView(view, LayoutParams.MATCH_PARENT, dip2px(context, 50));
-
-        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
     }
 
     /**
@@ -64,6 +60,10 @@ public class HomeNormalNotifyView extends LinearLayout {
      */
     public void showNotifyView() {
         setVisibility(View.VISIBLE);
+        View view = View.inflate(context, R.layout.viewswitcher, null);
+        addView(view, LayoutParams.MATCH_PARENT, dip2px(context, 50));
+
+        viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
         TranslateAnimation showAnim = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
