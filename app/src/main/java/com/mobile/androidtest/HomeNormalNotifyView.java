@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
@@ -28,10 +27,6 @@ public class HomeNormalNotifyView extends LinearLayout {
     private MarqueeHandler marqueeHandler;
     private long MARQUEE_TIME_SPAN = 2000;//跑马灯切换时间间隔
     private long FLOAT_TIME_SPAN = 1000;//上下浮动动画切换时间间隔
-
-    private static final int DEFAULT_IN_ANIM_ID = R.anim.home_notify_in;
-    private static final int DEFAULT_OUT_ANIM_ID = R.anim.home_notify_out;
-    private static final int DEFAULT_INTERPOLATOR = android.R.interpolator.linear;
     private Context context;
     private ObjectAnimator repeatFloatAnim;
 
@@ -143,10 +138,20 @@ public class HomeNormalNotifyView extends LinearLayout {
      * 执行跑马灯切换动画
      */
     private void startMarqueeAnim() {
-        Animation inAnim = AnimationUtils.loadAnimation(context, DEFAULT_IN_ANIM_ID);
-        Animation outAnim = AnimationUtils.loadAnimation(context, DEFAULT_OUT_ANIM_ID);
-        inAnim.setInterpolator(context, DEFAULT_INTERPOLATOR);
-        outAnim.setInterpolator(context, DEFAULT_INTERPOLATOR);
+        Animation inAnim = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f);
+        inAnim.setDuration(1000);
+        inAnim.setInterpolator(new LinearInterpolator());
+        Animation outAnim = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, -1.0f);
+        outAnim.setDuration(1000);
+        outAnim.setInterpolator(new LinearInterpolator());
         //设置View进入离开动画
         viewSwitcher.setInAnimation(inAnim);
         viewSwitcher.setOutAnimation(outAnim);
