@@ -27,7 +27,7 @@
             android:text="隐藏提示view" />
     </LinearLayout>
 
-    <com.mobile.androidtest.HomeNotifyView
+    <com.mobile.androidtest.HomeNormalNotifyView
         android:id="@+id/homenotifyview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

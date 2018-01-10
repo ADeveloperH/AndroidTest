@@ -11,13 +11,22 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.homenotifyview)
-    HomeNotifyView homenotifyview;
+    HomeNormalNotifyView homenotifyview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+
+        homenotifyview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homenotifyview.hiddlenNotifyView();
+            }
+        });
     }
 
     @OnClick({R.id.btn_show, R.id.btn_hiddlen})

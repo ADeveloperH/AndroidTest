@@ -21,7 +21,7 @@ import android.widget.ViewSwitcher;
  */
 
 
-public class HomeNotifyView extends LinearLayout {
+public class HomeNormalNotifyView extends LinearLayout {
     public static final int SCROLL = 1;//循环跑马灯效果
 
     private ViewSwitcher viewSwitcher;
@@ -35,15 +35,15 @@ public class HomeNotifyView extends LinearLayout {
     private Context context;
     private ObjectAnimator repeatFloatAnim;
 
-    public HomeNotifyView(Context context) {
+    public HomeNormalNotifyView(Context context) {
         this(context, null);
     }
 
-    public HomeNotifyView(Context context, @Nullable AttributeSet attrs) {
+    public HomeNormalNotifyView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public HomeNotifyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public HomeNormalNotifyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context);
@@ -86,7 +86,7 @@ public class HomeNotifyView extends LinearLayout {
             }
         });
         startAnimation(showAnim);
-        
+
     }
 
 
@@ -176,5 +176,4 @@ public class HomeNotifyView extends LinearLayout {
         float density = context.getResources().getDisplayMetrics().density;
         return (int) (dip * density + 0.5);
     }
-
 }
