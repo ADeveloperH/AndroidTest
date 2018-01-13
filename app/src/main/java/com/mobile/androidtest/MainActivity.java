@@ -1,8 +1,12 @@
 package com.mobile.androidtest;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -12,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.homenotifyview)
     HomeNormalNotifyView homenotifyview;
+    @BindView(R.id.iv_line)
+    ImageView ivLine;
+    @BindView(R.id.iv_hand)
+    ImageView ivHand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +27,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(ivLine.getLayoutParams().height, 700);
+        valueAnimator.setDuration(2000);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                int currentValue = (Integer) animator.getAnimatedValue();
+                // 获得每次变化后的属性值
+                Log.d("huang", "onAnimationUpdate: currentValue:" + currentValue);
+                ivLine.getLayoutParams().height = currentValue;
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivHand.getLayoutParams();
+
+                layoutParams.bottomMargin = currentValue - 105;
+                // 刷新视图，即重新绘制，从而实现动画效果
+                ivLine.requestLayout();
+                ivHand.requestLayout();
+            }
+        });
+        valueAnimator.start();
 
 
         homenotifyview.setOnClickListener(new View.OnClickListener() {

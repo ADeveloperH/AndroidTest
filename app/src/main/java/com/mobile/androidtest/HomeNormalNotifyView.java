@@ -49,14 +49,19 @@ public class HomeNormalNotifyView extends LinearLayout {
         setOrientation(VERTICAL);
     }
 
+    private boolean isAdded = false;
+
     /**
      * 动画显示当前布局
      * 属性动画相对自身移动需要API14+,这里用补间动画实现
      */
     public void showNotifyView() {
         setVisibility(View.VISIBLE);
-        View view = View.inflate(context, R.layout.viewswitcher, null);
-        addView(view, LayoutParams.MATCH_PARENT, dip2px(context, 50));
+        if (!isAdded) {
+            View view = View.inflate(context, R.layout.viewswitcher, null);
+            addView(view, LayoutParams.MATCH_PARENT, dip2px(context, 50));
+            isAdded = true;
+        }
 
         viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
         TranslateAnimation showAnim = new TranslateAnimation(
