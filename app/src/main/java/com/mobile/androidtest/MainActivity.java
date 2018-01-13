@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 // 获得每次变化后的属性值
                 Log.d("huang", "onAnimationUpdate: currentValue:" + currentValue);
                 ivLine.getLayoutParams().height = currentValue;
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) ivHand.getLayoutParams();
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ivHand.getLayoutParams();
 
                 layoutParams.bottomMargin = currentValue - 105;
                 // 刷新视图，即重新绘制，从而实现动画效果
