@@ -18,6 +18,13 @@
             android:text="显示提示view" />
 
         <Button
+            android:id="@+id/btn_show2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="显示蒙版view" />
+
+        <Button
             android:id="@+id/btn_hiddlen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,31 +32,10 @@
             android:text="隐藏提示view" />
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/iv_line"
-            android:layout_width="10dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/line" />
-
-        <ImageView
-            android:id="@+id/iv_hand"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/hand" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -57,8 +43,7 @@
             android:id="@+id/homenotifyview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:paddingBottom="50dp"
+            android:paddingBottom="12dp"
             android:visibility="visible" />
     </LinearLayout>
 

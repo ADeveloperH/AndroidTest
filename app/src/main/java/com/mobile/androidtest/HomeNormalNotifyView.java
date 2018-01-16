@@ -26,7 +26,7 @@ public class HomeNormalNotifyView extends LinearLayout {
     private ViewSwitcher viewSwitcher;
     private MarqueeHandler marqueeHandler;
     private long MARQUEE_TIME_SPAN = 2000;//跑马灯切换时间间隔
-    private long FLOAT_TIME_SPAN = 1000;//上下浮动动画切换时间间隔
+    private long FLOAT_TIME = 1600;//上下浮动动画切换时间间隔
     private Context context;
     private ObjectAnimator repeatFloatAnim;
 
@@ -99,7 +99,7 @@ public class HomeNormalNotifyView extends LinearLayout {
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 1.0f);
-        hiddlenAnim.setDuration(300);
+        hiddlenAnim.setDuration(1000);
         hiddlenAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -132,7 +132,7 @@ public class HomeNormalNotifyView extends LinearLayout {
                 "translationY",
                 0, -23.0f, 0, 23.0f, 0);
         repeatFloatAnim.setInterpolator(new LinearInterpolator());
-        repeatFloatAnim.setDuration(FLOAT_TIME_SPAN);
+        repeatFloatAnim.setDuration(FLOAT_TIME);
         repeatFloatAnim.setRepeatCount(ValueAnimator.INFINITE);
         repeatFloatAnim.setRepeatMode(ValueAnimator.RESTART);
         repeatFloatAnim.start();
