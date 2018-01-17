@@ -3,7 +3,7 @@
     android:shape="rectangle">
     <corners android:radius="30dp"/>
 
-    <solid android:color="@color/bg_viewswitcher"/>
+    <solid android:color="#323232"/>
 
 
 </shape>

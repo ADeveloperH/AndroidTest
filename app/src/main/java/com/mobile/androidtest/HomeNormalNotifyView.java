@@ -1,7 +1,6 @@
 package com.mobile.androidtest;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -19,16 +18,18 @@ import android.widget.ViewSwitcher;
  * description:
  */
 
-
 public class HomeNormalNotifyView extends LinearLayout {
     public static final int SCROLL = 1;//循环跑马灯效果
+    public static final int FLOAT_UP = 2;//向上浮动
+    public static final int FLOAT_DOWN = 3;//向上浮动
 
     private ViewSwitcher viewSwitcher;
-    private MarqueeHandler marqueeHandler;
-    private long MARQUEE_TIME_SPAN = 2000;//跑马灯切换时间间隔
-    private long FLOAT_TIME = 1600;//上下浮动动画切换时间间隔
+    private MyHandler mHandler;
+    private long MARQUEE_TIME_SPAN = 1600;//viewSwitcher切换时间间隔
+    private long MARQUEE_MOVE_TIME = 600;//viewSwitcher执行切换的时间
+    private long FLOAT_TIME = 600;//上下浮动动画切换时间间隔
+    private int float_distance;//浮动的幅度
     private Context context;
-    private ObjectAnimator repeatFloatAnim;
 
     public HomeNormalNotifyView(Context context) {
         this(context, null);
@@ -47,6 +48,7 @@ public class HomeNormalNotifyView extends LinearLayout {
     private void init(Context context) {
         this.context = context;
         setOrientation(VERTICAL);
+        float_distance = dip2px(context, 8);
     }
 
     private boolean isAdded = false;
@@ -78,7 +80,8 @@ public class HomeNormalNotifyView extends LinearLayout {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startFloatAnim();
+                delayStartMarqueeAnim();
+                startFloatUpAnim();
             }
 
             @Override
@@ -86,7 +89,6 @@ public class HomeNormalNotifyView extends LinearLayout {
             }
         });
         startAnimation(showAnim);
-
     }
 
 
@@ -108,11 +110,9 @@ public class HomeNormalNotifyView extends LinearLayout {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //执行完动画隐藏.移除动画，防止内存泄露
-                repeatFloatAnim.cancel();
-                repeatFloatAnim = null;
                 clearAnimation();
-                marqueeHandler.removeCallbacksAndMessages(null);
-                marqueeHandler = null;
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler = null;
                 setVisibility(View.GONE);
             }
 
@@ -125,56 +125,73 @@ public class HomeNormalNotifyView extends LinearLayout {
 
 
     /**
-     * 执行上下浮动的动画
+     * 执行向上浮动的动画
      */
-    private void startFloatAnim() {
-        repeatFloatAnim = ObjectAnimator.ofFloat(this,
-                "translationY",
-                0, -23.0f, 0, 23.0f, 0);
-        repeatFloatAnim.setInterpolator(new LinearInterpolator());
-        repeatFloatAnim.setDuration(FLOAT_TIME);
-        repeatFloatAnim.setRepeatCount(ValueAnimator.INFINITE);
-        repeatFloatAnim.setRepeatMode(ValueAnimator.RESTART);
-        repeatFloatAnim.start();
-        startMarqueeAnim();
+    private void startFloatUpAnim() {
+        ObjectAnimator floatUpAnim = ObjectAnimator.ofFloat(this,
+                "translationY", 0, -float_distance);
+        floatUpAnim.setInterpolator(new LinearInterpolator());
+        floatUpAnim.setDuration(FLOAT_TIME);
+        floatUpAnim.start();
+        mHandler.removeMessages(FLOAT_DOWN);
+        mHandler.sendEmptyMessageDelayed(FLOAT_DOWN, 1000);
     }
 
     /**
-     * 执行跑马灯切换动画
+     * 执行向下浮动的动画
      */
-    private void startMarqueeAnim() {
+    private void startFloatDownAnim() {
+        ObjectAnimator floatDownAnim = ObjectAnimator.ofFloat(this,
+                "translationY", -float_distance, 0);
+        floatDownAnim.setInterpolator(new LinearInterpolator());
+        floatDownAnim.setDuration(FLOAT_TIME);
+        floatDownAnim.start();
+        mHandler.removeMessages(FLOAT_UP);
+        mHandler.sendEmptyMessageDelayed(FLOAT_UP, FLOAT_TIME);
+    }
+
+    /**
+     * 执行文字箭头切换动画
+     */
+    private void delayStartMarqueeAnim() {
         Animation inAnim = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 1.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
-        inAnim.setDuration(1000);
+        inAnim.setDuration(MARQUEE_MOVE_TIME);
         inAnim.setInterpolator(new LinearInterpolator());
         Animation outAnim = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, -1.0f);
-        outAnim.setDuration(1000);
+        outAnim.setDuration(MARQUEE_MOVE_TIME);
         outAnim.setInterpolator(new LinearInterpolator());
         //设置View进入离开动画
         viewSwitcher.setInAnimation(inAnim);
         viewSwitcher.setOutAnimation(outAnim);
 
-        if (marqueeHandler == null) {
-            marqueeHandler = new MarqueeHandler();
+        if (mHandler == null) {
+            mHandler = new MyHandler();
         }
-        marqueeHandler.removeMessages(SCROLL);
-        marqueeHandler.sendEmptyMessageDelayed(SCROLL, MARQUEE_TIME_SPAN);
+        mHandler.removeMessages(SCROLL);
+        mHandler.sendEmptyMessageDelayed(SCROLL, 400);
     }
 
-    private class MarqueeHandler extends android.os.Handler {
+    private class MyHandler extends android.os.Handler {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case SCROLL://
+                case SCROLL://循环执行文字箭头切换
                     viewSwitcher.showNext();
-                    marqueeHandler.sendEmptyMessageDelayed(SCROLL, MARQUEE_TIME_SPAN);
+                    mHandler.sendEmptyMessageDelayed(SCROLL, MARQUEE_TIME_SPAN);
+                    break;
+                case FLOAT_DOWN://执行下移动画
+                    startFloatDownAnim();
+                    break;
+                case FLOAT_UP://执行上浮动画
+                    startFloatUpAnim();
                     break;
             }
 
