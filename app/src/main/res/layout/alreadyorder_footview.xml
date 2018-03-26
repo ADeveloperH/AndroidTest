@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EFEFEF"
+    android:orientation="vertical"
+    android:paddingTop="5dp">
+
+    <LinearLayout
+        android:id="@+id/ll_btn_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_goto_taocan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alreadyorder_btn_line_big"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingLeft="34dp"
+            android:paddingRight="34dp"
+            android:paddingTop="7dp"
+            android:text="查看套餐余量"
+            android:textColor="#298DFE"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_goto_banli"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/alreadyorder_btn_big"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingLeft="34dp"
+            android:paddingRight="34dp"
+            android:paddingTop="7dp"
+            android:text="更多业务办理"
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/view_fill"
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_foot_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="以上信息查询时间2018-03-07 11:32,部分省份查询统计存在一定延迟，仅供参考"
+        android:textColor="#999999"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/tips_copyright"
+        android:textColor="#999999"
+        android:textSize="12dp" />
+</LinearLayout>
