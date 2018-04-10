@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 包含多种颜色圆弧的圆形进度条 -->
+    <declare-styleable name="MultiColorCircleProgress">
+        <!-- 圆弧颜色(单色时需要设置) -->
+        <attr name="arcColor" format="color|reference" />
+        <!-- 背景圆弧颜色（都需要设置） -->
+        <attr name="bgArcColor" format="color|reference" />
+        <!-- 圆弧宽度（都需要设置） -->
+        <attr name="arcWidth" format="dimension" />
+
+        <!-- 最终剩余的百分比[0.0f,1.0f]（单色时需要设置） -->
+        <attr name="remainPercent" format="float" />
+
+        <!-- 设置动画时间（都需要设置） -->
+        <attr name="animTime" format="integer" />
+
+        <!--是否是多颜色圆弧，默认为否是单色-->
+        <attr name="isMultiColor" format="boolean" />
+
+    </declare-styleable>
+
+</resources>
