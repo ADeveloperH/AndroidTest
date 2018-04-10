@@ -293,7 +293,7 @@ public class MultiColorCircleProgress extends View {
     /**
      * 设置多色圆弧进度。三个List必须一一对应
      * @param arcPaintColorList  不同圆弧画笔颜色的集合
-     * @param arcPercentList     对应不同圆弧所占total的百分比[0.0f,1.0f]
+     * @param arcPercentList     对应不同圆弧所占total的百分比[0.0f,1.0f].相加必须为1
      * @param remainPercentInSelfList 对应不同圆弧最终剩余（占自身的）百分比[0.0f,1.0f]
      */
     public void setMultiColorProgress(List<Integer> arcPaintColorList,
