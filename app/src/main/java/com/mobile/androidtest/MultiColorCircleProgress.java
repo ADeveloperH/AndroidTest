@@ -138,9 +138,10 @@ public class MultiColorCircleProgress extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(getMeasureSize(widthMeasureSpec, mDefaultSize),
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int measureSize = Math.min(getMeasureSize(widthMeasureSpec, mDefaultSize),
                 getMeasureSize(heightMeasureSpec, mDefaultSize));
+        setMeasuredDimension(measureSize, measureSize);
     }
 
 
@@ -153,13 +154,17 @@ public class MultiColorCircleProgress extends View {
      */
     private int getMeasureSize(int measureSpec, int defaultSize) {
         int result = defaultSize;
-        int specMode = View.MeasureSpec.getMode(measureSpec);
-        int specSize = View.MeasureSpec.getSize(measureSpec);
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
 
-        if (specMode == View.MeasureSpec.EXACTLY) {
-            result = specSize;
-        } else if (specMode == View.MeasureSpec.AT_MOST) {
-            result = Math.min(defaultSize, specSize);
+        switch (specMode) {
+            case MeasureSpec.UNSPECIFIED:
+                result = defaultSize;
+                break;
+            case MeasureSpec.AT_MOST:
+            case MeasureSpec.EXACTLY:
+                result = specSize;
+                break;
         }
         return result;
     }
@@ -235,7 +240,7 @@ public class MultiColorCircleProgress extends View {
             canvas.restore();
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("huang", "drawMultiColorArc: e:" + e.getLocalizedMessage() );
+            Log.d("huang", "drawMultiColorArc: e:" + e.getLocalizedMessage());
         }
     }
 
@@ -277,6 +282,7 @@ public class MultiColorCircleProgress extends View {
 
     /**
      * 格式化百分比数据，数值范围规范在[0.0,1.0]
+     *
      * @param percent
      * @return
      */
@@ -292,14 +298,15 @@ public class MultiColorCircleProgress extends View {
 
     /**
      * 设置多色圆弧进度。三个List必须一一对应
-     * @param arcPaintColorList  不同圆弧画笔颜色的集合
-     * @param arcPercentList     对应不同圆弧所占total的百分比[0.0f,1.0f].相加必须为1
+     *
+     * @param arcPaintColorList       不同圆弧画笔颜色的集合
+     * @param arcPercentList          对应不同圆弧所占total的百分比[0.0f,1.0f].相加必须为1
      * @param remainPercentInSelfList 对应不同圆弧最终剩余（占自身的）百分比[0.0f,1.0f]
      */
     public void setMultiColorProgress(List<Integer> arcPaintColorList,
                                       List<Float> arcPercentList,
                                       List<Float> remainPercentInSelfList) {
-        if (!isValidate(arcPaintColorList,arcPercentList,remainPercentInSelfList)) {
+        if (!isValidate(arcPaintColorList, arcPercentList, remainPercentInSelfList)) {
             Log.e(TAG, "设置多种颜色圆弧数据不合法");
             return;
         }
@@ -344,6 +351,7 @@ public class MultiColorCircleProgress extends View {
 
     /**
      * 对传入的数据进行格式化，防止异常数据
+     *
      * @param percentList
      */
     private void formatPercentList(List<Float> percentList) {
@@ -354,6 +362,7 @@ public class MultiColorCircleProgress extends View {
 
     /**
      * 检验数据是否合法
+     *
      * @param arcPaintColorList
      * @param arcPercentList
      * @param remainPercentInSelfList

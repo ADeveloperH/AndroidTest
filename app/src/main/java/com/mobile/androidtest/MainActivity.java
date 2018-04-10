@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 arcPaintColorList.add(Color.RED);
                 arcPercentList.add(0.7f);
                 arcPercentList.add(0.3f);
-                remainPercentInSelfList.add(0.5f);
+                remainPercentInSelfList.add(0.3f);
                 remainPercentInSelfList.add(0.6f);
                 circleProgress.setMultiColorProgress(arcPaintColorList,arcPercentList,remainPercentInSelfList);
                 break;
