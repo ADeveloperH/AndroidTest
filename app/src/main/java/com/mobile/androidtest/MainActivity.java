@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         List<String> dataList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 20; i++) {
             dataList.add(i + "");
         }
 
@@ -35,5 +35,7 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(new ItemRecyclerViewAdapter(false, dataList));
+
+        recyclerView.addOnScrollListener(new RVItemVisibleScrollListener());
     }
 }

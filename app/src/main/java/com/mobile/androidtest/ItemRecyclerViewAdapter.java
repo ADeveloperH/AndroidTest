@@ -49,6 +49,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof DataViewHodler) {
+            ((DataViewHodler) holder).tvTuiDing.setText(dataList.get(position));
+        }
     }
 
     @Override
@@ -99,6 +102,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvStartTime = (TextView) itemView.findViewById(R.id.tv_invalid_time);
             tvTuiDing = (TextView) itemView.findViewById(R.id.tv_tuiding);
             tvBianGeng = (TextView) itemView.findViewById(R.id.tv_biangeng);
+
         }
     }
 
@@ -127,5 +131,9 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             llBtnContainer.setVisibility(View.GONE);
         }
 
+    }
+
+    public List<String> getDataList() {
+        return dataList;
     }
 }
