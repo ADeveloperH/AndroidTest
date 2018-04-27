@@ -120,7 +120,7 @@ public class MultiColorCircleProgress extends View {
         mBgArcPaint.setStyle(Paint.Style.STROKE);
         mBgArcPaint.setStrokeWidth(mArcWidth);
         mBgArcPaint.setStrokeCap(Paint.Cap.ROUND);
-
+        mBgArcPaint.setAlpha(25);
     }
 
     private void initPaint() {
@@ -173,19 +173,34 @@ public class MultiColorCircleProgress extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        Log.d("huang", "onSizeChanged: w:" + w);
         //求最小值作为实际值
-        int minSize = Math.min(w - getPaddingLeft() - getPaddingRight() - 2 * (int) mArcWidth,
-                h - getPaddingTop() - getPaddingBottom() - 2 * (int) mArcWidth);
+        int minSize = Math.min(w - getFitPadding(getPaddingLeft()) - getFitPadding(getPaddingRight()) - 2 * (int) mArcWidth,
+                h - getFitPadding(getPaddingTop()) - getFitPadding(getPaddingBottom()) - 2 * (int) mArcWidth);
+        Log.d("huang", "onSizeChanged: minSize:" + minSize);
         //减去圆弧的宽度，否则会造成部分圆弧绘制在外围
         int mRadius = minSize / 2;
+        Log.d("huang", "onSizeChanged: mRadius:" + mRadius);
         //获取圆的相关参数
         mCenterPoint.x = w / 2;
         mCenterPoint.y = h / 2;
+        Log.d("huang", "onSizeChanged: mCenterPoint.x:" + mCenterPoint.x);
         //绘制圆弧的边界
         mRectF.left = mCenterPoint.x - mRadius - mArcWidth / 2;
         mRectF.top = mCenterPoint.y - mRadius - mArcWidth / 2;
         mRectF.right = mCenterPoint.x + mRadius + mArcWidth / 2;
         mRectF.bottom = mCenterPoint.y + mRadius + mArcWidth / 2;
+    }
+
+
+    /**
+     * 当用户没有设置padding时添加一个合适的padding
+     * 防止因/2导致精度确实，圆圈不圆的问题
+     * @param realPadding
+     * @return
+     */
+    private int getFitPadding(int realPadding) {
+        return realPadding < 3 ? 3 : realPadding;
     }
 
     @Override
