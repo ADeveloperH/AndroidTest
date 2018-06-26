@@ -34,8 +34,8 @@ public class FragmentViewPagerAdapter extends FragmentPagerAdapter {
         return fragmentList == null ? 0 : fragmentList.size();
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titleList.get(position);
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return titleList.get(position);
+//    }
 }

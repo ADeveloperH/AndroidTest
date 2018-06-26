@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,22 +50,31 @@ public class FragmentActivity extends AppCompatActivity {
         fragmentList.add(BaseFragment.newInstance("我的关注哈哈"));
         titleList.add("我的关注哈哈");
 
+        fragmentList.add(BaseFragment.newInstance("为您服务2"));
+        titleList.add("为您服务2");
+        fragmentList.add(BaseFragment.newInstance("我的关注哈哈2"));
+        titleList.add("我的关注哈哈2");
+
+        fragmentList.add(BaseFragment.newInstance("为您服务3"));
+        titleList.add("为您服务3");
+        fragmentList.add(BaseFragment.newInstance("我的关注哈哈3"));
+        titleList.add("我的关注哈哈3");
+
+        fragmentList.add(BaseFragment.newInstance("为您服务4"));
+        titleList.add("为您服务4");
+        fragmentList.add(BaseFragment.newInstance("我的关注哈哈4"));
+        titleList.add("我的关注哈哈4");
 
         FragmentPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager()
                 , fragmentList, titleList);
         viewpager.setAdapter(adapter);
 
 
-        LinearLayout linearLayout = (LinearLayout) tablayout.getChildAt(0);
-        linearLayout.setBackgroundColor(getResources().getColor(R.color.tabBackground));
-        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
-        linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
-                R.drawable.tab_dividers));
         if (fragmentList.size() > 4) {
             tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         } else {
             tablayout.setTabMode(TabLayout.MODE_FIXED);
-            setIndicator(tablayout);
+//            setIndicator(tablayout);
         }
         viewpager.setOffscreenPageLimit(fragmentList.size() - 1);
 
@@ -80,7 +88,7 @@ public class FragmentActivity extends AppCompatActivity {
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewpager.setCurrentItem(tab.getPosition(), false);
+                viewpager.setCurrentItem(tab.getPosition(), true);
             }
 
             @Override
@@ -93,6 +101,12 @@ public class FragmentActivity extends AppCompatActivity {
 
             }
         });
+
+        for (int i = 0; i < adapter.getCount(); i++) {
+            TabLayout.Tab tab = tablayout.getTabAt(i);//获得每一个tab
+            LinearLayout view = (LinearLayout) View.inflate(this, R.layout.item_alreadyorder_tabindicator, null);
+            tab.setCustomView(view);//给每一个tab设置view
+        }
     }
 
     /**
