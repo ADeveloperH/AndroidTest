@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_getbug"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="60dp"
+        android:gravity="center"
+        android:text="调起bug"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/btn_fixbug"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/btn_getbug"
+        android:layout_centerInParent="true"
+        android:layout_margin="60dp"
+        android:gravity="center"
+        android:text="修复bug"
+        android:textColor="#fff" />
+
+</RelativeLayout>
