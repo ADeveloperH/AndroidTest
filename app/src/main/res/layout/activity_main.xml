@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textColor="#000" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_scale"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="15dp"
+        android:maxLines="1"
+        android:text="dfadf"
+        android:textColor="#000" />
 
 
+    <TextView
+        android:id="@+id/tv_cur_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textColor="#000"
+        android:textSize="15dp" />
 </LinearLayout>
