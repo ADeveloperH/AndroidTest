@@ -1,6 +1,6 @@
-package com.example.annotationlib.processor;
+package com.example.apt_processor.factory;
 
-import com.example.annotationlib.annotation.Factory;
+import com.example.annotationlib.factory.Factory;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;

@@ -1,6 +1,6 @@
 package com.mobile.androidtest.factory;
 
-import com.example.annotationlib.annotation.Factory;
+import com.example.annotationlib.factory.Factory;
 
 /**
  * @author huangjian

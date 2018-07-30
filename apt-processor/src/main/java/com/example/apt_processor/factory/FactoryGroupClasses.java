@@ -1,24 +1,20 @@
-package com.example.annotationlib.processor;
+package com.example.apt_processor.factory;
 
-import com.example.annotationlib.annotation.Factory;
-import com.example.annotationlib.exception.ProcessingException;
+import com.example.annotationlib.factory.Factory;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.processing.Filer;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
-import javax.tools.JavaFileObject;
 
 /**
  * @author huangjian

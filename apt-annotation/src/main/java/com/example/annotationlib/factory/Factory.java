@@ -1,4 +1,4 @@
-package com.example.annotationlib.annotation;
+package com.example.annotationlib.factory;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,6 +16,4 @@ public @interface Factory {
     Class type();
 
     String id();
-
-
 }

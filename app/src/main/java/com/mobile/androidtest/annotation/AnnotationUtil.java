@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  * @create 2018/7/25 0025
  * @Description 反射机制的注解处理器
  */
-public class AnnotationUtil {
+public class  AnnotationUtil {
     private static final String TAG = "hj";
 
     public static void getAnnotation(Class<?> cl) {
