@@ -3,15 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
+    android:gravity="center"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity_In_Module"
+        android:textColor="#000"
+        android:textSize="36dp" />
+
     <Button
-        android:id="@+id/btn_in_module"
+        android:id="@+id/btn_invoke_method"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="module内跳转"
+        android:text="调用其他模块的方法"
         android:textColor="#000"
-        android:textSize="16dp" />
-
+        android:textSize="15dp" />
 
 </LinearLayout>

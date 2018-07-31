@@ -1,9 +1,9 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion 25
-    buildToolsVersion '27.0.3'
+
     defaultConfig {
-        applicationId "com.mobile.androidtest"
         minSdkVersion 12
         targetSdkVersion 23
         versionCode 1
@@ -13,24 +13,20 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:25.3.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.alibaba:fastjson:1.2.9'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
-
     implementation project(':baselibrary')
-    //需要依赖提供服务的模块。不用时可以在这里直接移除，代码中不进行强依赖，通过 base 模块的接口调用路由依赖
-    implementation project(':sublibrary')
 }
