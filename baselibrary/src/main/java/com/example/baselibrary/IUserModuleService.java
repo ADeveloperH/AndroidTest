@@ -1,6 +1,7 @@
 package com.example.baselibrary;
 
 import com.alibaba.android.arouter.facade.template.IProvider;
+import com.example.baselibrary.bean.UserBean;
 
 /**
  * @author huangjian
@@ -9,6 +10,6 @@ import com.alibaba.android.arouter.facade.template.IProvider;
  */
 public interface IUserModuleService extends IProvider {
 
-    String getUserName(String userId);
+    UserBean getUserName(String userId);
 
 }
