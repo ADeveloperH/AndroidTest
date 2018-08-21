@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:gravity="center_horizontal"
+    app:alignContent="space_around"
+    android:padding="15dp"
+    app:alignItems="flex_start"
+    app:flexDirection="row"
+    app:flexWrap="wrap"
+    app:justifyContent="space_around"
+    app:showDivider="none">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/item_flexbox_orange"
+        android:gravity="center"
+        android:text="全部分类"
+        android:textColor="#fff"
+        android:textSize="14dp"
+        app:layout_flexBasisPercent="28%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/item_flexbox_gray"
+        android:gravity="center"
+        android:text="红包"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        app:layout_flexBasisPercent="28%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:background="@drawable/item_flexbox_gray"
+        android:gravity="center"
+        android:text="问答"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        app:layout_flexBasisPercent="28%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/item_flexbox_gray"
+        android:gravity="center"
+        android:text="邀请"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        app:layout_flexBasisPercent="28%"
+        app:layout_wrapBefore="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/item_flexbox_gray"
+        android:gravity="center"
+        android:text="邀请"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        android:visibility="invisible"
+        app:layout_flexBasisPercent="28%" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/item_flexbox_gray"
+        android:gravity="center"
+        android:text="邀请"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        android:visibility="invisible"
+        app:layout_flexBasisPercent="28%"/>
+
+
+</com.google.android.flexbox.FlexboxLayout>
